@@ -1,0 +1,74 @@
+# Node modules
+node_modules/
+
+# Compiled output
+dist/
+out/
+build/
+
+# Electron-builder artifacts
+/*.exe
+/*.dmg
+/*.AppImage
+/*.snap
+/*.deb
+/*.rpm
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux temp files
+*~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+electron-builder-cache/
+electron-installer-debian/
+electron-installer-redhat/
+electron-installer-windows/
+
+# VSCode
+.vscode/
+
+# Temporary files
+tmp/
+temp/
+
+# PIDs
+*.pid
+*.seed
+
+# Coverage (if using jest / coverage tools)
+coverage/
+
+# Electron forge
+out/
+Makefile
+
+# Packaging temp
+release/
+
+# Python cache (rare but safe)
+__pycache__/
+
+# OS trash files
+$.Trash-*/

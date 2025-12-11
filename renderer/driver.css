@@ -1,0 +1,65 @@
+#driverPage .main-driver {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+}
+
+.jig-sections {
+  display: flex;
+  gap: 20px;
+}
+
+.charging-section, .discharging-section {
+  flex: 1;
+  background: #f0f4f8;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.charging-section h3, .discharging-section h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.powers label, .input-values label, .output-values label {
+  display: block;
+  margin: 5px 0;
+}
+
+.passfail-bar {
+  margin-top: 10px;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  background-color: green;
+}
+
+.passfail-bar.FAIL {
+  background-color: red;
+}
+
+/* Serial Section */
+#driverPage .serial-section {
+  background: #e2e8f0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+/* Tester Info & Overall Status */
+.tester-info, .overall-status, .right-panel {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+/* Layout Right Panel */
+.right-panel {
+  float: right;
+  width: 20%;
+}

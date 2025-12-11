@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MPPT-SSL Testing JIG</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="driver.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <span id="date"></span>
+    <span class="version">v1.0.0</span>
+  </div>
+
+  <div class="header-center">
+    <h1>MPPT-SSL Testing JIG</h1>
+    <p>Beam Infotech Pvt Ltd</p>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-btn" onclick="openSettings()">⚙</button>
+  </div>
+</header>
+
+<!-- MAIN DASHBOARD PAGE -->
+<main class="main" id="mainPage">
+  <div class="jig-buttons">
+    <button onclick="openJig('driverPage')">Driver Jig</button>
+    <button onclick="openJig('rmsPage')">RMS Jig</button>
+    <button onclick="openJig('ledPage')">LED Jig</button>
+    <button onclick="openJig('performancePage')">Performance Jig</button>
+    <button onclick="openJig('ageingPage')">Ageing Jig</button>
+  </div>
+
+  <!-- GRAPH TOGGLE -->
+  <button class="graph-toggle" onclick="toggleStats()">📊</button>
+</main>
+
+<!-- STATS PANEL -->
+<aside id="statsPanel">
+  <h3>Performance Stats</h3>
+  <p>Total Tested: 245</p>
+  <p>Pass Rate: 96%</p>
+  <p>Fail Rate: 4%</p>
+  <p>Best Streak: 58</p>
+</aside>
+
+<!-- 🔥 COMMON SERIAL COMMUNICATION SECTION (Always Visible) -->
+<div class="serial-section" id="mainSerial">
+  <label>Select COM Port:</label>
+  <select id="portList"></select>
+
+  <div style="display:flex; gap:10px;">
+    <button id="refreshBtn">Refresh</button>
+    <button id="connectBtn">Connect</button>
+  </div>
+
+  <span class="connection-status" id="connStatus">USB Port: Not Connected</span>
+
+  <label>Enter Number:</label>
+  <input type="text" id="userInput" placeholder="Enter number">
+  <button id="startBtn">Send</button>
+
+  <div class="log-box" id="log"></div>
+</div>
+
+<!-- DRIVER PAGE -->
+<div id="driverPage" style="display:none;">
+  <header class="header">
+    <div class="header-center">
+      <h1>Driver JIG</h1>
+      <p>Beam Infotech Pvt Ltd</p>
+    </div>
+    <div class="header-right">
+      <button onclick="backToMain()">⬅ Back</button>
+    </div>
+  </header>
+
+  <main class="main-driver">
+
+    <!-- Charging / Discharging Sections -->
+    <div class="jig-sections">
+
+      <!-- Charging -->
+      <div class="charging-section">
+        <h3>Charging (Solar → Battery)</h3>
+        <div class="input-values">
+          <label>Solar Voltage: <span id="solarVoltage">0</span> V</label>
+          <label>Solar Current: <span id="solarCurrent">0</span> A</label>
+        </div>
+        <div class="output-values">
+          <label>Battery Voltage: <span id="batVoltage">0</span> V</label>
+          <label>Battery Current: <span id="batCurrent">0</span> A</label>
+        </div>
+        <div class="powers">
+          <label>Input Power: <span id="inputPower">0</span> W</label>
+          <label>Output Power: <span id="outputPower">0</span> W</label>
+        </div>
+        <label>Efficiency: <span id="efficiency">0</span>%</label>
+
+        <div class="passfail-bar" id="chargingStatus">PASS</div>
+      </div>
+
+      <!-- Discharging -->
+      <div class="discharging-section">
+        <h3>Discharging (Battery → LED)</h3>
+        <div class="input-values">
+          <label>Battery Voltage: <span id="disBatVoltage">0</span> V</label>
+          <label>Battery Current: <span id="disBatCurrent">0</span> A</label>
+        </div>
+        <div class="output-values">
+          <label>LED Voltage: <span id="ledVoltage">0</span> V</label>
+          <label>LED Current: <span id="ledCurrent">0</span> A</label>
+        </div>
+        <div class="powers">
+          <label>Input Power: <span id="disInputPower">0</span> W</label>
+          <label>Output Power: <span id="disOutputPower">0</span> W</label>
+        </div>
+        <label>Efficiency: <span id="disEfficiency">0</span>%</label>
+
+        <div class="passfail-bar" id="dischargingStatus">PASS</div>
+      </div>
+
+    </div>
+
+    <!-- Tester Info -->
+    <div class="tester-info">
+      <label>Tester Name:</label>
+      <input type="text" id="testerName">
+      <button onclick="lockTesterName()">Lock</button>
+    </div>
+
+    <!-- Overall Status -->
+    <div class="overall-status">
+      <label>Total Tested: <span id="totalTested">0</span></label>
+      <label>Total Passed: <span id="totalPassed">0</span></label>
+      <label>Total Failed: <span id="totalFailed">0</span></label>
+      <label>Overall Status: <span id="overallStatus">PASS</span></label>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <label>Product ID:</label>
+      <input type="text" id="productID">
+      <button onclick="lockProductID()">Lock</button>
+
+      <label>MOS Temp: <span id="mosTemp">0</span> °C</label>
+      <label>Ambient Temp: <span id="ambientTemp">0</span> °C</label>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © A product of Beam Infotech
+</footer>
+
+<!-- Scripts -->
+<script src="driver.js" defer></script>
+<script src="index.js" defer></script>
+
+</body>
+</html>
