@@ -1,166 +1,668 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MPPT-SSL Testing JIG</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="driver.css">
-</head>
-<body>
+  <head>
+    <title>MPPT-SSL Testing JIG</title>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-left">
-    <span id="date"></span>
-    <span class="version">v1.0.0</span>
-  </div>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="driver.css" />
+    <link rel="stylesheet" href="rms.css" />
+    <link rel="stylesheet" href="led.css" />
+    <link rel="stylesheet" href="performance.css" />
+    <link rel="stylesheet" href="ageing.css" />
 
-  <div class="header-center">
-    <h1>MPPT-SSL Testing JIG</h1>
-    <p>Beam Infotech Pvt Ltd</p>
-  </div>
+  </head>
 
-  <div class="header-right">
-    <button class="icon-btn" onclick="openSettings()">⚙</button>
-  </div>
-</header>
-
-<!-- MAIN DASHBOARD PAGE -->
-<main class="main" id="mainPage">
-  <div class="jig-buttons">
-    <button onclick="openJig('driverPage')">Driver Jig</button>
-    <button onclick="openJig('rmsPage')">RMS Jig</button>
-    <button onclick="openJig('ledPage')">LED Jig</button>
-    <button onclick="openJig('performancePage')">Performance Jig</button>
-    <button onclick="openJig('ageingPage')">Ageing Jig</button>
-  </div>
-
-  <!-- GRAPH TOGGLE -->
-  <button class="graph-toggle" onclick="toggleStats()">📊</button>
-</main>
-
-<!-- STATS PANEL -->
-<aside id="statsPanel">
-  <h3>Performance Stats</h3>
-  <p>Total Tested: 245</p>
-  <p>Pass Rate: 96%</p>
-  <p>Fail Rate: 4%</p>
-  <p>Best Streak: 58</p>
-</aside>
-
-<!-- 🔥 COMMON SERIAL COMMUNICATION SECTION (Always Visible) -->
-<div class="serial-section" id="mainSerial">
-  <label>Select COM Port:</label>
-  <select id="portList"></select>
-
-  <div style="display:flex; gap:10px;">
-    <button id="refreshBtn">Refresh</button>
-    <button id="connectBtn">Connect</button>
-  </div>
-
-  <span class="connection-status" id="connStatus">USB Port: Not Connected</span>
-
-  <label>Enter Number:</label>
-  <input type="text" id="userInput" placeholder="Enter number">
-  <button id="startBtn">Send</button>
-
-  <div class="log-box" id="log"></div>
-</div>
-
-<!-- DRIVER PAGE -->
-<div id="driverPage" style="display:none;">
-  <header class="header">
-    <div class="header-center">
-      <h1>Driver JIG</h1>
-      <p>Beam Infotech Pvt Ltd</p>
-    </div>
-    <div class="header-right">
-      <button onclick="backToMain()">⬅ Back</button>
-    </div>
-  </header>
-
-  <main class="main-driver">
-
-    <!-- Charging / Discharging Sections -->
-    <div class="jig-sections">
-
-      <!-- Charging -->
-      <div class="charging-section">
-        <h3>Charging (Solar → Battery)</h3>
-        <div class="input-values">
-          <label>Solar Voltage: <span id="solarVoltage">0</span> V</label>
-          <label>Solar Current: <span id="solarCurrent">0</span> A</label>
-        </div>
-        <div class="output-values">
-          <label>Battery Voltage: <span id="batVoltage">0</span> V</label>
-          <label>Battery Current: <span id="batCurrent">0</span> A</label>
-        </div>
-        <div class="powers">
-          <label>Input Power: <span id="inputPower">0</span> W</label>
-          <label>Output Power: <span id="outputPower">0</span> W</label>
-        </div>
-        <label>Efficiency: <span id="efficiency">0</span>%</label>
-
-        <div class="passfail-bar" id="chargingStatus">PASS</div>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <span id="date"></span>
+        <span class="version">v1.0.0</span>
       </div>
 
-      <!-- Discharging -->
-      <div class="discharging-section">
-        <h3>Discharging (Battery → LED)</h3>
-        <div class="input-values">
-          <label>Battery Voltage: <span id="disBatVoltage">0</span> V</label>
-          <label>Battery Current: <span id="disBatCurrent">0</span> A</label>
-        </div>
-        <div class="output-values">
-          <label>LED Voltage: <span id="ledVoltage">0</span> V</label>
-          <label>LED Current: <span id="ledCurrent">0</span> A</label>
-        </div>
-        <div class="powers">
-          <label>Input Power: <span id="disInputPower">0</span> W</label>
-          <label>Output Power: <span id="disOutputPower">0</span> W</label>
-        </div>
-        <label>Efficiency: <span id="disEfficiency">0</span>%</label>
+      <div class="header-center">
+        <h1>MPPT-SSL Testing JIG</h1>
+        <p>Beam Infotech Pvt Ltd</p>
+      </div>
 
-        <div class="passfail-bar" id="dischargingStatus">PASS</div>
+      <div class="header-right">
+        <button class="icon-btn" onclick="openSettings()">⚙</button>
+      </div>
+    </header>
+
+    <!-- CENTER WORKSPACE -->
+    <div id="workspace">
+      <!-- MAIN DASHBOARD -->
+      <div id="mainPage" class="center-screen">
+        <div class="jig-buttons">
+          <button class="jig-btn" onclick="openJig('driverPage')">
+            Driver Jig
+          </button>
+          <button class="jig-btn" onclick="openJig('rmsPage')">RMS Jig</button>
+          <button class="jig-btn" onclick="openJig('ledPage')">LED Jig</button>
+          <button class="jig-btn" onclick="openJig('performancePage')">
+            Performance Jig
+          </button>
+          <button class="jig-btn" onclick="openJig('ageingPage')">
+            Ageing Jig
+          </button>
+        </div>
+      </div>
+
+<!-------------------------------------------------DRIVER PAGE--------------------------------------------------------->
+
+    <!-- DRIVER PAGE — Balanced + Partitioned Charging/Discharging -->
+<div id="driverPage" class="driver-jig" style="display:none;">
+  <button class="driver-back-btn" onclick="backToMain()">← Back</button>
+
+  <div class="driver-wrapper">
+
+    <!-- LEFT: CHARGING (with partition: INPUT | OUTPUT) -->
+    <section class="driver-block block-left">
+      <div class="section-title">CHARGING</div>
+
+      <!-- Partition: left = Input (Solar), right = Output (Battery) -->
+      <div class="io-partition">
+        <!-- INPUT (Solar) -->
+        <div class="io-side io-left">
+          <div class="side-title">INPUT (Solar)</div>
+          <div class="io-item">
+            <div class="io-label">Voltage</div>
+            <div class="io-value" id="solarVoltage">0<span>V</span></div>
+          </div>
+          <div class="io-item">
+            <div class="io-label">Current</div>
+            <div class="io-value" id="solarCurrent">0<span>A</span></div>
+          </div>
+        </div>
+
+        <!-- VERTICAL DIVIDER -->
+        <div class="io-divider"></div>
+
+        <!-- OUTPUT (Battery) -->
+        <div class="io-side io-right">
+          <div class="side-title">OUTPUT (Battery)</div>
+          <div class="io-item">
+            <div class="io-label">Voltage</div>
+            <div class="io-value" id="batVoltage">0<span>V</span></div>
+          </div>
+          <div class="io-item">
+            <div class="io-label">Current</div>
+            <div class="io-value" id="batCurrent">0<span>A</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Power row under the partition (Input Power -> Output Power) -->
+      <div class="power-row">
+        <div class="power-block">
+          <div class="power-label">Input Power</div>
+          <div class="power-value" id="inputPower">0<span>W</span></div>
+        </div>
+
+        <div class="power-arrow">→</div>
+
+        <div class="power-block">
+          <div class="power-label">Output Power</div>
+          <div class="power-value" id="outputPower">0<span>W</span></div>
+        </div>
+      </div>
+
+      <!-- Efficiency + Status -->
+      <div class="eff-row">
+        <div class="eff-card">
+          <div class="eff-title">EFFICIENCY</div>
+          <div class="eff-value" id="efficiency">0<span>%</span></div>
+        </div>
+
+        <div class="status-card">
+          <div id="chargingStatus" class="status-pill small">PASS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENTER: MPPT CORE (small, no background box behind rings) -->
+<section class="mppt-center">
+  <div class="mppt-title">MPPT CORE</div>
+
+  <div class="dual-gauge-container">
+    <div class="ring outer-ring" id="ringOuter"></div>
+    <div class="ring inner-ring" id="ringInner"></div>
+
+    <div class="gauge-center">
+      <div id="coreEffNumber" class="gauge-number">0<span>%</span></div>
+      <div class="gauge-sub">AVG</div>
+    </div>
+  </div>
+
+  <!-- OVERALL STATUS -->
+  <div id="overallStatus" class="status-pill medium">PASS</div>
+  <div id="overallReason" class="overall-reason">
+    System operating normally.
+  </div>
+
+  <!-- ⭐ START TEST BUTTON (Inside mppt-center) -->
+  <button id="startTestBtn" class="start-test-btn">Start Test</button>
+
+  <!-- ⭐ COUNTERS (Inside mppt-center) -->
+<div class="test-counters compact">
+  <div class="counter-line">
+    <span class="counter-label">Total Tested:</span>
+    <span id="countTested" class="counter-value">0</span>
+  </div>
+
+  <div class="counter-line">
+    <span class="counter-label">Total Pass:</span>
+    <span id="countPass" class="counter-value">0</span>
+  </div>
+
+  <div class="counter-line">
+    <span class="counter-label">Total Fail:</span>
+    <span id="countFail" class="counter-value">0</span>
+  </div>
+</div>
+
+</section>
+
+    <!-- RIGHT: DISCHARGING (same partitioned layout) -->
+    <section class="driver-block block-right">
+      <div class="section-title">DISCHARGING</div>
+
+      <div class="io-partition">
+        <div class="io-side io-left">
+          <div class="side-title">INPUT (Battery)</div>
+          <div class="io-item">
+            <div class="io-label">Voltage</div>
+            <div class="io-value" id="disBatVoltage">0<span>V</span></div>
+          </div>
+          <div class="io-item">
+            <div class="io-label">Current</div>
+            <div class="io-value" id="disBatCurrent">0<span>A</span></div>
+          </div>
+        </div>
+
+        <div class="io-divider"></div>
+
+        <div class="io-side io-right">
+          <div class="side-title">OUTPUT (LED)</div>
+          <div class="io-item">
+            <div class="io-label">Voltage</div>
+            <div class="io-value" id="ledVoltage">0<span>V</span></div>
+          </div>
+          <div class="io-item">
+            <div class="io-label">Current</div>
+            <div class="io-value" id="ledCurrent">0<span>A</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="power-row">
+        <div class="power-block">
+          <div class="power-label">Input Power</div>
+          <div class="power-value" id="disInputPower">0<span>W</span></div>
+        </div>
+
+        <div class="power-arrow">→</div>
+
+        <div class="power-block">
+          <div class="power-label">Output Power</div>
+          <div class="power-value" id="disOutputPower">0<span>W</span></div>
+        </div>
+      </div>
+
+      <div class="eff-row">
+        <div class="eff-card">
+          <div class="eff-title">EFFICIENCY</div>
+          <div class="eff-value" id="disEfficiency">0<span>%</span></div>
+        </div>
+
+        <div class="status-card">
+          <div id="dischargingStatus" class="status-pill small">PASS</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!--------------------------------------END OF DRIVER CODE---------------------------------------------------------------------------->
+
+<!-------------------------------------------------RMS PAGE--------------------------------------------------------->
+
+<div id="rmsPage" class="rms-jig" style="display:none;">
+  <button class="rms-back-btn" onclick="backToMain()">← Back</button>
+
+  <div class="rms-wrapper">
+
+    <!-- LEFT: RMS INPUT SECTION -->
+    <section class="rms-block rms-left-block">
+      <div class="rms-title">RMS INPUT</div>
+
+      <div class="rms-io-partition">
+
+        <!-- INPUT (AC Source) -->
+        <div class="rms-io-side rms-io-left">
+          <div class="rms-side-title">INPUT (AC)</div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Voltage (RMS)</div>
+            <div class="rms-io-value" id="rmsInVoltage">0<span>V</span></div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Current (RMS)</div>
+            <div class="rms-io-value" id="rmsInCurrent">0<span>A</span></div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Power Factor</div>
+            <div class="rms-io-value" id="rmsPowerFactor">0.00</div>
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="rms-io-divider"></div>
+
+        <!-- OUTPUT (DC Stage) -->
+        <div class="rms-io-side rms-io-right">
+          <div class="rms-side-title">OUTPUT (DC)</div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">DC Voltage</div>
+            <div class="rms-io-value" id="rmsOutVoltage">0<span>V</span></div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">DC Current</div>
+            <div class="rms-io-value" id="rmsOutCurrent">0<span>A</span></div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Ripple (%)</div>
+            <div class="rms-io-value" id="rmsRipple">0%</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Power Row -->
+      <div class="rms-power-row">
+        <div class="rms-power-block">
+          <div class="rms-power-label">Input Power</div>
+          <div class="rms-power-value" id="rmsInputPower">0<span>W</span></div>
+        </div>
+
+        <div class="rms-power-arrow">→</div>
+
+        <div class="rms-power-block">
+          <div class="rms-power-label">Output Power</div>
+          <div class="rms-power-value" id="rmsOutputPower">0<span>W</span></div>
+        </div>
+      </div>
+
+      <!-- Efficiency + Status -->
+      <div class="rms-eff-row">
+        <div class="rms-eff-card">
+          <div class="rms-eff-title">EFFICIENCY</div>
+          <div class="rms-eff-value" id="rmsEfficiency">0<span>%</span></div>
+        </div>
+
+        <div class="rms-status-card">
+          <div id="rmsStatusInput" class="rms-status-pill small">PASS</div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- CENTER GAUGE SECTION -->
+    <section class="rms-center">
+      <div class="rms-center-title">RMS CORE ANALYSIS</div>
+
+      <div class="rms-dual-gauge-container">
+        <div class="rms-ring outer-ring" id="rmsRingOuter"></div>
+        <div class="rms-ring inner-ring" id="rmsRingInner"></div>
+
+        <div class="rms-gauge-center">
+          <div id="rmsCoreEffNumber" class="rms-gauge-number">0<span>%</span></div>
+          <div class="rms-gauge-sub">AVG</div>
+        </div>
+      </div>
+
+      <div id="rmsOverallStatus" class="rms-status-pill medium">PASS</div>
+      <div id="rmsOverallReason" class="rms-overall-reason">Nominal operation.</div>
+
+      <button id="rmsStartTestBtn" class="rms-start-test-btn">Start Test</button>
+
+      <div class="rms-test-counters compact">
+        <div class="rms-counter-line">
+          <span class="rms-counter-label">Total Tested:</span>
+          <span id="rmsCountTested" class="rms-counter-value">0</span>
+        </div>
+
+        <div class="rms-counter-line">
+          <span class="rms-counter-label">Total Pass:</span>
+          <span id="rmsCountPass" class="rms-counter-value">0</span>
+        </div>
+
+        <div class="rms-counter-line">
+          <span class="rms-counter-label">Total Fail:</span>
+          <span id="rmsCountFail" class="rms-counter-value">0</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- RIGHT: RMS OUTPUT ANALYSIS -->
+    <section class="rms-block rms-right-block">
+      <div class="rms-title">OUTPUT QUALITY</div>
+
+      <div class="rms-io-partition">
+
+        <div class="rms-io-side rms-io-left">
+          <div class="rms-side-title">WAVEFORM</div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">THD (%)</div>
+            <div class="rms-io-value" id="rmsTHD">0%</div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Harmonics</div>
+            <div class="rms-io-value" id="rmsHarmonics">0</div>
+          </div>
+        </div>
+
+        <div class="rms-io-divider"></div>
+
+        <div class="rms-io-side rms-io-right">
+          <div class="rms-side-title">RESULT</div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Stability</div>
+            <div class="rms-io-value" id="rmsStability">0%</div>
+          </div>
+
+          <div class="rms-io-item">
+            <div class="rms-io-label">Noise Level</div>
+            <div class="rms-io-value" id="rmsNoise">0 dB</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rms-eff-row">
+        <div class="rms-eff-card">
+          <div class="rms-eff-title">QUALITY SCORE</div>
+          <div class="rms-eff-value" id="rmsQualityScore">0</div>
+        </div>
+
+        <div class="rms-status-card">
+          <div id="rmsStatusOutput" class="rms-status-pill small">PASS</div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</div>
+
+<!--------------------------------------END OF RMS CODE---------------------------------------------------------------------------->
+
+<!-------------------------------------------------LED PAGE--------------------------------------------------------->
+
+<div id="ledPage" class="led-jig" style="display:none;">
+  
+  <!-- BACK BUTTON -->
+  <button class="led-back-btn" onclick="backToMain()">← Back</button>
+
+  <div class="led-wrapper">
+
+    <!-- LEFT SECTION: INPUT & OUTPUT PARTITION -->
+    <section class="led-block block-left">
+      <div class="led-section-title">LED INPUT / DRIVER OUTPUT</div>
+
+      <div class="led-io-partition">
+
+        <!-- INPUT SIDE -->
+        <div class="led-io-side led-io-left">
+          <div class="led-side-title">INPUT (Driver)</div>
+
+          <div class="led-io-item">
+            <div class="led-io-label">Voltage</div>
+            <div class="led-io-value" id="ledInVolt">0<span>V</span></div>
+          </div>
+
+          <div class="led-io-item">
+            <div class="led-io-label">Current</div>
+            <div class="led-io-value" id="ledInCurr">0<span>A</span></div>
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="led-io-divider"></div>
+
+        <!-- OUTPUT SIDE -->
+        <div class="led-io-side led-io-right">
+          <div class="led-side-title">OUTPUT (LED Load)</div>
+
+          <div class="led-io-item">
+            <div class="led-io-label">Voltage</div>
+            <div class="led-io-value" id="ledOutVolt">0<span>V</span></div>
+          </div>
+
+          <div class="led-io-item">
+            <div class="led-io-label">Current</div>
+            <div class="led-io-value" id="ledOutCurr">0<span>A</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- POWER ROW -->
+      <div class="led-power-row">
+
+        <div class="led-power-block">
+          <div class="led-power-label">Input Power</div>
+          <div class="led-power-value" id="ledInputPower">0<span>W</span></div>
+        </div>
+
+        <div class="led-power-arrow">→</div>
+
+        <div class="led-power-block">
+          <div class="led-power-label">Output Power</div>
+          <div class="led-power-value" id="ledOutputPower">0<span>W</span></div>
+        </div>
+
+      </div>
+
+      <!-- EFFICIENCY + STATUS -->
+      <div class="led-eff-row">
+
+        <div class="led-eff-card">
+          <div class="led-eff-title">EFFICIENCY</div>
+          <div class="led-eff-value" id="ledEfficiency">0<span>%</span></div>
+        </div>
+
+        <div class="led-status-card">
+          <div id="ledStatus" class="led-status-pill small">PASS</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CENTER RING GAUGE -->
+    <section class="led-center">
+      
+      <div class="led-core-title">LED CORE</div>
+
+      <div class="led-dual-gauge-container">
+
+        <div class="led-ring led-ringOuter" id="ledRingOuter"></div>
+        <div class="led-ring led-ringInner" id="ledRingInner"></div>
+
+        <div class="led-gauge-center">
+          <div id="ledCoreEffNumber" class="led-gauge-number">0<span>%</span></div>
+          <div class="led-gauge-sub">AVG</div>
+        </div>
+
+      </div>
+
+      <!-- OVERALL STATUS -->
+      <div id="ledOverallStatus" class="led-status-pill medium">PASS</div>
+      <div id="ledOverallReason" class="led-overall-reason">System operating normally.</div>
+
+      <!-- START TEST BUTTON -->
+      <button id="ledStartTestBtn" class="led-start-test-btn">Start Test</button>
+
+      <!-- COUNTERS -->
+      <div class="led-test-counters compact">
+
+        <div class="led-counter-line">
+          <span class="led-counter-label">Total Tested:</span>
+          <span id="ledCountTested" class="led-counter-value">0</span>
+        </div>
+
+        <div class="led-counter-line">
+          <span class="led-counter-label">Total Pass:</span>
+          <span id="ledCountPass" class="led-counter-value">0</span>
+        </div>
+
+        <div class="led-counter-line">
+          <span class="led-counter-label">Total Fail:</span>
+          <span id="ledCountFail" class="led-counter-value">0</span>
+        </div>
+
+      </div>
+    </section>
+
+
+   <!-- LED PCB REPLICA -->
+<section class="led-block pcb-block">
+  <div class="led-section-title">LED PCB REPLICA</div>
+
+  <div class="led-pcb">
+    <div class="pcb-board">
+
+      <!-- MAIN 6 LED MATRIX -->
+      <div class="pcb-led-grid">
+
+        <!-- LED 1 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight1"></div>
+          <div class="led-val" id="ledVal1">0</div>
+        </div>
+
+        <!-- LED 2 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight2"></div>
+          <div class="led-val" id="ledVal2">0</div>
+        </div>
+
+        <!-- LED 3 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight3"></div>
+          <div class="led-val" id="ledVal3">0</div>
+        </div>
+
+        <!-- LED 4 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight4"></div>
+          <div class="led-val" id="ledVal4">0</div>
+        </div>
+
+        <!-- LED 5 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight5"></div>
+          <div class="led-val" id="ledVal5">0</div>
+        </div>
+
+        <!-- LED 6 -->
+        <div class="pcb-led">
+          <div class="led-light" id="ledLight6"></div>
+          <div class="led-val" id="ledVal6">0</div>
+        </div>
+
+      </div>
+
+      <!-- INDICATORS -->
+      <div class="pcb-indicators">
+
+        <!-- Row: Blue (left) & Red (right) -->
+        <div class="pcb-ind-row">
+          <div class="ind-unit">
+            <div class="ind-light ind-blue" id="ledIndBlue"></div>
+            <div class="ind-val" id="ledIndValBlue">0</div>
+          </div>
+
+          <div class="ind-unit">
+            <div class="ind-light ind-red" id="ledIndRed"></div>
+            <div class="ind-val" id="ledIndValRed">0</div>
+          </div>
+        </div>
+
+        <!-- Row: Empty (left) & Green (right) -->
+        <div class="pcb-ind-row">
+          <div class="ind-unit"></div>
+
+          <div class="ind-unit">
+            <div class="ind-light ind-green" id="ledIndGreen"></div>
+            <div class="ind-val" id="ledIndValGreen">0</div>
+          </div>
+        </div>
+
       </div>
 
     </div>
+  </div>
+</section>
 
-    <!-- Tester Info -->
-    <div class="tester-info">
-      <label>Tester Name:</label>
-      <input type="text" id="testerName">
-      <button onclick="lockTesterName()">Lock</button>
-    </div>
 
-    <!-- Overall Status -->
-    <div class="overall-status">
-      <label>Total Tested: <span id="totalTested">0</span></label>
-      <label>Total Passed: <span id="totalPassed">0</span></label>
-      <label>Total Failed: <span id="totalFailed">0</span></label>
-      <label>Overall Status: <span id="overallStatus">PASS</span></label>
-    </div>
-
-    <!-- Right Panel -->
-    <div class="right-panel">
-      <label>Product ID:</label>
-      <input type="text" id="productID">
-      <button onclick="lockProductID()">Lock</button>
-
-      <label>MOS Temp: <span id="mosTemp">0</span> °C</label>
-      <label>Ambient Temp: <span id="ambientTemp">0</span> °C</label>
-    </div>
-
-  </main>
+  </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  © A product of Beam Infotech
-</footer>
+<!----------------------------------------END LED PAGE-------------------------------------------------------------->
 
-<!-- Scripts -->
-<script src="driver.js" defer></script>
-<script src="index.js" defer></script>
 
-</body>
+    <!-- BOTTOM BAR -->
+<div id="bottomBar">
+
+  <!-- SERIAL SECTION -->
+  <div class="bottom-section" id="serialBox">
+    <label>Port:</label>
+<select id="portList" style="width: 150px;"></select>
+    <button id="refreshBtn" class="mini-btn">↺</button>
+    <button id="connectBtn" class="mini-btn connect">Connect</button>
+  </div>
+
+  <!-- TESTER NAME SECTION -->
+  <div class="bottom-section" id="testerBox">
+    <label>Tester Name:</label>
+    <input id="testerNameInput" type="text" placeholder="Enter name" />
+  </div>
+
+  <!-- PRODUCT ID SECTION -->
+  <div class="bottom-section" id="productBox">
+    <label>Product ID:</label>
+    <input id="productIDInput" type="text" placeholder="Enter ID" />
+  </div>
+
+  <!-- LOG SECTION -->
+  <div class="bottom-section" id="logBox">
+    <div id="log"></div>
+  </div>
+
+</div>
+
+
+    <footer class="footer">© A product of Beam Infotech</footer>
+
+    <script src="driver.js" defer></script>
+    <script src="driver-ui.js" defer></script>
+    <script src="index.js" defer></script>
+    <script src="rms-ui.js" defer></script>
+    <script src="led-ui.js" defer></script>
+
+  </body>
 </html>

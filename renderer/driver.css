@@ -1,65 +1,415 @@
-#driverPage .main-driver {
+/* driver.css — Balanced + Partitioned Charging/Discharging
+   (Updated: back button left, green/red status glow, cream IO panels)
+*/
+
+/* wrapper sizes */
+.driver-jig {
+  height: 65vh; /* balanced height */
+  margin: 18px 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+  color: #06283d;
+}
+
+/* back button — moved to top-left, clearly left of Charging */
+#driverPage .driver-back-btn {
+  position: fixed !important; /* <-- override everything */
+  top: 95px !important; /* header ke niche perfect space */
+  left: 20px !important; /* true left */
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 9999 !important; /* highest priority */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* grid: left center right */
+.driver-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 1.15fr; /* wider sides, smaller center */
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* side block card */
+.driver-block {
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 22px rgba(6, 40, 61, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 15px;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
-.jig-sections {
+/* center MPPT area is minimal box (no bg behind rings) */
+.mppt-center {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 12px;
 }
 
-.charging-section, .discharging-section {
+/* headings */
+.section-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #06283d;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+/* partition (input | divider | output) */
+.io-partition {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  background: transparent;
+}
+
+/* each side inside partition */
+/* changed to cream-ish lighter tone to stand out */
+.io-side {
   flex: 1;
-  background: #f0f4f8;
-  padding: 15px;
+  background: linear-gradient(180deg, #fffdf6, #fff9f0); /* cream tone */
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 12px;
+  box-shadow: 0 6px 14px rgba(6, 40, 61, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(6, 40, 61, 0.03);
 }
 
-.charging-section h3, .discharging-section h3 {
+/* vertical divider style */
+.io-divider {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 40, 61, 0.06),
+    rgba(6, 40, 61, 0.02)
+  );
+  border-radius: 1px;
+  align-self: center;
+  height: 100%;
+  max-height: 160px;
+}
+
+/* side title inside partition */
+.side-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #385a82;
+  margin-bottom: 6px;
+}
+
+/* io item */
+.io-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 8px;
+}
+
+.io-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.io-value {
+  font-size: 26px;
+  font-weight: 900;
+  color: #04263c;
+}
+.io-value span {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 6px;
+}
+
+/* power row */
+.power-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.power-block {
   text-align: center;
-  margin-bottom: 10px;
+  background: linear-gradient(180deg, #f7fbff, #ffffff);
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(6, 40, 61, 0.03);
+  min-width: 140px;
+}
+.power-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.power-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #04263c;
+}
+.power-value span {
+  font-size: 12px;
+  color: #6b7280;
 }
 
-.powers label, .input-values label, .output-values label {
-  display: block;
-  margin: 5px 0;
+/* power arrow */
+.power-arrow {
+  font-size: 18px;
+  color: #7fb3ff;
+  font-weight: 900;
 }
 
-.passfail-bar {
-  margin-top: 10px;
-  padding: 8px;
+/* efficiency + status row */
+.eff-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.eff-card {
+  flex: 1;
+  background: linear-gradient(180deg, #f1fffb, #ffffff);
+  border-radius: 10px;
+  padding: 10px 12px;
   text-align: center;
-  font-weight: bold;
+  box-shadow: inset 0 -6px 12px rgba(6, 40, 61, 0.01);
+}
+.eff-title {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.eff-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #06614d;
+}
+
+/* status card holds the pill centered */
+.status-card {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================
+   STATUS PILL (green/red with glow)
+   stable size so it won't jump
+   ========================== */
+.status-pill {
+  min-width: 110px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  font-weight: 900;
+  font-size: 13px;
+  display: inline-block;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+}
+
+/* OK (green) */
+/* GREEN (PASS) — Glow + bold effect */
+.status-pill.ok {
+  background: linear-gradient(90deg, #16a34a, #059669);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.55),
+    0 4px 10px rgba(34, 197, 94, 0.25);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* RED (FAIL) — Glow + bold effect */
+.status-pill.fail {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.55),
+    0 4px 10px rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* small variant */
+.status-pill.small {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+/* CENTER DUAL RINGS (small) */
+.dual-gauge-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 8px 0 12px;
+  pointer-events: none;
+}
+.outer-ring {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: conic-gradient(#cfe3ff 0deg, #eaf5ff 0deg);
+  border: 6px solid #fff;
+  z-index: 1;
+}
+.inner-ring {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  left: 25px;
+  top: 25px;
+  border-radius: 50%;
+  background: conic-gradient(#d8fff0 0deg, #eafff5 0deg);
+  border: 6px solid #fff;
+  z-index: 2;
+}
+.gauge-center {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  left: 45px;
+  top: 45px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 3;
+  box-shadow: 0 8px 20px rgba(6, 40, 61, 0.06);
+}
+.gauge-number {
+  font-size: 18px;
+  font-weight: 900;
+  color: #04263c;
+}
+.gauge-number span {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 4px;
+}
+.gauge-sub {
+  font-size: 10px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* overall reason */
+.overall-reason {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #495566;
+  text-align: center;
+}
+
+/* responsiveness */
+@media (max-width: 1100px) {
+  .driver-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+  }
+  .block-right {
+    order: 3;
+  }
+  .mppt-center {
+    order: 2;
+  }
+}
+@media (max-width: 700px) {
+  .driver-wrapper {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .dual-gauge-container {
+    display: none;
+  } /* hide rings on narrow screens */
+}
+
+/* =====================================
+   START TEST BUTTON (Inside MPPT Center)
+===================================== */
+.start-test-btn {
+  margin-top: 16px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
   color: white;
-  border-radius: 5px;
-  background-color: green;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+  transition: 0.25s ease;
 }
 
-.passfail-bar.FAIL {
-  background-color: red;
+.start-test-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.55);
 }
 
-/* Serial Section */
-#driverPage .serial-section {
-  background: #e2e8f0;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 15px;
+/* ========================================
+   COMPACT COUNTERS (Fits in small space)
+======================================== */
+.test-counters.compact {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 180px;
+  text-align: left;
 }
 
-/* Tester Info & Overall Status */
-.tester-info, .overall-status, .right-panel {
-  margin-top: 10px;
-  padding: 10px;
-  background: #f8fafc;
-  border-radius: 8px;
+/* Each counter line */
+.counter-line {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-/* Layout Right Panel */
-.right-panel {
-  float: right;
-  width: 20%;
+/* Labels */
+.counter-label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Values */
+.counter-value {
+  font-size: 14px;
+  font-weight: 900;
+  color: #06283d;
+  transition: 0.2s ease;
+}
+
+.counter-value.updated {
+  transform: scale(1.15);
 }

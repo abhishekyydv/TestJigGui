@@ -1,0 +1,775 @@
+/* ======================================================================
+   led.css — Premium LED Jig Styling (Blue–Teal Theme)
+   Fully isolated: all selectors use led-* prefix
+   ====================================================================== */
+
+/* --------------------------------------------------
+   PAGE WRAPPER
+-------------------------------------------------- */
+.led-jig {
+  height: 65vh;
+  margin: 18px 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: "Segoe UI", system-ui, Arial;
+  color: #083344; /* deep blue-teal */
+}
+
+/* --------------------------------------------------
+   BACK BUTTON (top-left)
+-------------------------------------------------- */
+#ledPage .led-back-btn {
+  position: fixed !important;
+  top: 95px !important;
+  left: 20px !important;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+}
+
+/* --------------------------------------------------
+   GRID (left-center-right)
+-------------------------------------------------- */
+.led-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 1.15fr;
+  gap: 24px;
+}
+
+/* --------------------------------------------------
+   BLOCKS (left & right panels)
+-------------------------------------------------- */
+.led-block {
+  background: linear-gradient(180deg, #ffffff, #f4fcff);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 22px rgba(8, 51, 68, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.led-section-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #083344;
+  margin-bottom: 6px;
+}
+
+/* --------------------------------------------------
+   IO PARTITION (input | divider | output)
+-------------------------------------------------- */
+.led-io-partition {
+  display: flex;
+  gap: 14px;
+}
+
+.led-io-side {
+  flex: 1;
+  background: linear-gradient(180deg, #faffff, #f0fbff);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(8, 51, 68, 0.05);
+  box-shadow: 0 6px 14px rgba(8, 51, 68, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.led-side-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f6e8c;
+  margin-bottom: 6px;
+}
+
+/* Divider */
+.led-io-divider {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 51, 68, 0.15),
+    rgba(8, 51, 68, 0.05)
+  );
+  border-radius: 1px;
+  align-self: center;
+  height: 100%;
+}
+
+/* --------------------------------------------------
+   IO ITEMS
+-------------------------------------------------- */
+.led-io-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px;
+}
+
+.led-io-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #567a85;
+  letter-spacing: 0.5px;
+}
+
+.led-io-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: #083344;
+}
+
+.led-io-value span {
+  font-size: 12px;
+  color: #567a85;
+  margin-left: 4px;
+}
+
+/* --------------------------------------------------
+   POWER ROW
+-------------------------------------------------- */
+.led-power-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.led-power-block {
+  min-width: 140px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffffff, #edfbff);
+  box-shadow: 0 6px 14px rgba(8, 51, 68, 0.04);
+}
+
+.led-power-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #567a85;
+}
+
+.led-power-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #083344;
+}
+
+.led-power-arrow {
+  font-size: 18px;
+  font-weight: 900;
+  color: #45b4e8;
+}
+
+/* --------------------------------------------------
+   EFFICIENCY + PASS/FAIL
+-------------------------------------------------- */
+.led-eff-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.led-eff-card {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ecfffa, #ffffff);
+  box-shadow: inset 0 -6px 12px rgba(8, 51, 68, 0.02);
+}
+
+.led-eff-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #567a85;
+}
+
+.led-eff-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #0b7258;
+}
+
+.led-status-card {
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --------------------------------------------------
+   STATUS PILL (Green / Red)
+-------------------------------------------------- */
+.led-status-pill {
+  min-width: 110px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.led-status-pill.ok {
+  background: linear-gradient(90deg, #18b862, #0c9d4a);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.55);
+}
+
+.led-status-pill.fail {
+  background: linear-gradient(90deg, #ef4444, #b91c1c);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.55);
+}
+
+/* --------------------------------------------------
+   CENTER GAUGE
+-------------------------------------------------- */
+.led-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.led-core-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #083344;
+  margin-bottom: 6px;
+}
+
+.led-dual-gauge-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 8px 0 10px;
+}
+
+.led-ring {
+  border-radius: 50%;
+  position: absolute;
+  border: 6px solid white;
+}
+
+#ledRingOuter {
+  width: 160px;
+  height: 160px;
+  background: conic-gradient(#c9f1ff 0deg, #e9fbff 0deg);
+}
+
+#ledRingInner {
+  width: 110px;
+  height: 110px;
+  left: 25px;
+  top: 25px;
+  background: conic-gradient(#d8fff5 0deg, #effffa 0deg);
+}
+
+.led-gauge-center {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: absolute;
+  left: 45px;
+  top: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(8, 51, 68, 0.08);
+}
+
+.led-gauge-number {
+  font-size: 18px;
+  font-weight: 900;
+  color: #083344;
+}
+
+.led-gauge-number span {
+  font-size: 12px;
+  margin-left: 4px;
+  color: #587b89;
+}
+
+.led-gauge-sub {
+  font-size: 10px;
+  color: #587b89;
+  margin-top: 4px;
+}
+
+/* Overall status text */
+.led-overall-reason {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #42616b;
+  text-align: center;
+}
+
+/* --------------------------------------------------
+   START TEST BUTTON
+-------------------------------------------------- */
+.led-start-test-btn {
+  margin-top: 14px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #44b4f0, #1f89c7);
+  color: white;
+  box-shadow: 0 6px 16px rgba(31, 137, 199, 0.35);
+  transition: 0.25s ease;
+}
+
+.led-start-test-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(31, 137, 199, 0.55);
+}
+
+/* --------------------------------------------------
+   COMPACT COUNTERS
+-------------------------------------------------- */
+.led-test-counters.compact {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 180px;
+}
+
+.led-counter-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
+}
+
+.led-counter-label {
+  font-size: 12px;
+  color: #6e8b94;
+}
+
+.led-counter-value {
+  font-size: 14px;
+  font-weight: 900;
+  color: #083344;
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+@media (max-width: 1100px) {
+  .led-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+  .block-right {
+    order: 3;
+  }
+  .led-center {
+    order: 2;
+  }
+}
+
+@media (max-width: 700px) {
+  .led-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .led-dual-gauge-container {
+    display: none;
+  }
+}
+
+/* ============================
+   LED PCB REPLICA STYLES
+   Append to led.css
+   ============================ */
+/* led.css — Final LED Jig UI (Replica Always Visible) */
+
+/* MAIN WRAPPER */
+.led-jig {
+  height: 65vh;
+  margin: 18px 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: "Segoe UI", system-ui, Arial;
+  color: #0b2239;
+}
+
+/* BACK BUTTON */
+#ledPage .led-back-btn {
+  position: fixed !important;
+  top: 95px !important;
+  left: 20px !important;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* GRID: LEFT – CENTER – RIGHT */
+.led-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 1.15fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* GENERAL BLOCK CARD */
+.led-block {
+  background: linear-gradient(#ffffff, #fbfdff);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+/* SECTION TITLES */
+.led-section-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0b2239;
+  margin-bottom: 6px;
+}
+
+/* ------------------------------
+   IO PARTITION
+------------------------------*/
+.led-io-partition {
+  display: flex;
+  gap: 14px;
+}
+
+.led-io-side {
+  flex: 1;
+  background: linear-gradient(#fffdf6, #fff9f1);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.led-side-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #385a82;
+  margin-bottom: 6px;
+}
+
+.led-io-divider {
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* IO Values */
+.led-io-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.led-io-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+.led-io-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: #0b2239;
+}
+
+.led-io-value span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ------------------------------
+   POWER ROW
+------------------------------*/
+.led-power-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.led-power-block {
+  min-width: 140px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-align: center;
+  background: linear-gradient(#f7fbff, #ffffff);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+}
+
+.led-power-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #6b7280;
+}
+
+.led-power-value {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.led-power-arrow {
+  font-size: 18px;
+  font-weight: 900;
+  color: #7fb3ff;
+}
+
+/* ------------------------------
+   EFF ROW
+------------------------------*/
+.led-eff-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.led-eff-card {
+  flex: 1;
+  background: linear-gradient(#f1fffb, #ffffff);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.led-eff-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #6b7280;
+}
+
+.led-eff-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #06614d;
+}
+
+/* STATUS PILL */
+.led-status-card {
+  width: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.led-status-pill {
+  min-width: 110px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 900;
+  color: white;
+}
+
+.led-status-pill.ok {
+  background: #16a34a;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.led-status-pill.fail {
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+/* ------------------------------
+   CENTER GAUGE
+------------------------------*/
+.led-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.led-core-title {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.led-dual-gauge-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 12px;
+}
+
+.led-ringOuter,
+.led-ringInner {
+  border-radius: 50%;
+  position: absolute;
+  border: 6px solid #fff;
+}
+
+#ledRingOuter {
+  width: 160px;
+  height: 160px;
+  background: conic-gradient(#d9e7ff 0deg, #eef4ff 0deg);
+}
+
+#ledRingInner {
+  width: 110px;
+  height: 110px;
+  left: 25px;
+  top: 25px;
+  background: conic-gradient(#d8fff0 0deg, #edfffa 0deg);
+}
+
+.led-gauge-center {
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 45px;
+  top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.led-gauge-number {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.led-gauge-sub {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.led-overall-reason {
+  font-size: 13px;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* START TEST BUTTON */
+.led-start-test-btn {
+  margin-top: 14px;
+  padding: 12px 26px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* ------------------------------
+   LED PCB REPLICA
+------------------------------*/
+.pcb-block {
+  padding: 16px;
+}
+
+.led-pcb {
+  display: flex;
+  justify-content: center;
+}
+
+.pcb-board {
+  background: #f0f4ff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 6 LED MATRIX GRID */
+.pcb-led-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.pcb-led {
+  text-align: center;
+}
+
+.led-light {
+  width: 32px;
+  height: 32px;
+  background: #d1d5db; /* default grey */
+  border-radius: 50%;
+  margin: 0 auto 6px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+.led-val {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* INDICATORS */
+.pcb-indicators {
+  margin-top: 10px;
+}
+
+.pcb-ind-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+  margin-bottom: 12px;
+}
+
+.ind-unit {
+  width: 32px;
+  text-align: center;
+}
+
+.ind-light {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin: 0 auto 6px;
+  background: #cbd5e1; /* default off */
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+.ind-blue {
+  background: #bfdbfe;
+}
+.ind-red {
+  background: #fecaca;
+}
+.ind-green {
+  background: #bbf7d0;
+}
+
+.ind-val {
+  font-size: 12px;
+  font-weight: 700;
+}

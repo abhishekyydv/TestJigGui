@@ -1,0 +1,366 @@
+/* rms.css — Premium RMS Layout (Independent from driver.css)
+   ------------------------------------------------------------
+   Same layout structure as Driver Jig but:
+   • All selectors renamed: rms-*
+   • Slightly different color palette (blue-violet theme)
+   • Prevents CSS conflicts with Driver Jig
+*/
+
+/* --------------------------------------------------
+   PAGE WRAPPER
+-------------------------------------------------- */
+.rms-jig {
+  height: 65vh;
+  margin: 18px 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: "Segoe UI", system-ui, Arial;
+  color: #1b1f3b;
+}
+
+/* --------------------------------------------------
+   BACK BUTTON (top-left)
+-------------------------------------------------- */
+#rmsPage .rms-back-btn {
+  position: fixed !important;
+  top: 95px !important;
+  left: 20px !important;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* --------------------------------------------------
+   GRID LAYOUT (left-center-right)
+-------------------------------------------------- */
+.rms-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 1.15fr;
+  gap: 24px;
+}
+
+/* --------------------------------------------------
+   RMS BLOCKS (left + right)
+-------------------------------------------------- */
+.rms-block {
+  background: linear-gradient(180deg, #ffffff, #fafaff);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 22px rgba(27, 31, 59, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rms-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1b1f3b;
+  margin-bottom: 6px;
+}
+
+/* --------------------------------------------------
+   INPUT / OUTPUT PARTITION
+-------------------------------------------------- */
+.rms-io-partition {
+  display: flex;
+  gap: 14px;
+}
+
+.rms-io-side {
+  flex: 1;
+  background: linear-gradient(180deg, #fdfaff, #f7f2ff);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(27, 31, 59, 0.05);
+  box-shadow: 0 6px 14px rgba(27, 31, 59, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rms-side-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #5b4ebf;
+  margin-bottom: 6px;
+}
+
+/* Divider */
+.rms-io-divider {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 31, 59, 0.12),
+    rgba(27, 31, 59, 0.04)
+  );
+  border-radius: 1px;
+  align-self: center;
+  height: 100%;
+}
+
+/* --------------------------------------------------
+   IO ITEMS
+-------------------------------------------------- */
+.rms-io-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px;
+}
+
+.rms-io-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #807b99;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rms-io-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: #1b1f3b;
+}
+.rms-io-value span {
+  font-size: 12px;
+  color: #807b99;
+  margin-left: 4px;
+}
+
+/* --------------------------------------------------
+   POWER ROW
+-------------------------------------------------- */
+.rms-power-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.rms-power-block {
+  min-width: 140px;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff, #f5f3ff);
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(27, 31, 59, 0.03);
+}
+
+.rms-power-label {
+  font-size: 11px;
+  color: #807b99;
+  font-weight: 800;
+}
+
+.rms-power-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #1b1f3b;
+}
+
+.rms-power-arrow {
+  font-size: 18px;
+  font-weight: 900;
+  color: #7a65f2;
+}
+
+/* --------------------------------------------------
+   EFFICIENCY & STATUS
+-------------------------------------------------- */
+.rms-eff-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rms-eff-card {
+  flex: 1;
+  background: linear-gradient(180deg, #f2fcff, #ffffff);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.rms-eff-title {
+  font-size: 11px;
+  color: #5b6a82;
+  font-weight: 800;
+}
+
+.rms-eff-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #007a8c;
+}
+
+/* --------------------------------------------------
+   STATUS PILL
+-------------------------------------------------- */
+.rms-status-card {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rms-status-pill {
+  min-width: 110px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.rms-status-pill.ok {
+  background: linear-gradient(90deg, #16a34a, #059669);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.rms-status-pill.fail {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+/* --------------------------------------------------
+   CENTER SECTION (GAUGE)
+-------------------------------------------------- */
+.rms-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.rms-center-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: #1b1f3b;
+}
+
+/* Gauge container */
+.rms-dual-gauge-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 8px 0;
+}
+
+.rms-ring {
+  border-radius: 50%;
+  position: absolute;
+  border: 6px solid white;
+}
+
+#rmsRingOuter {
+  width: 160px;
+  height: 160px;
+  background: conic-gradient(#d5d9ff 0deg, #ececff 0deg);
+}
+
+#rmsRingInner {
+  width: 110px;
+  height: 110px;
+  left: 25px;
+  top: 25px;
+  background: conic-gradient(#d8fff0 0deg, #eafff8 0deg);
+}
+
+.rms-gauge-center {
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 45px;
+  top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rms-gauge-number {
+  font-size: 18px;
+  font-weight: 900;
+  color: #1b1f3b;
+}
+
+.rms-gauge-sub {
+  font-size: 10px;
+  color: #5b6a82;
+}
+
+/* Overall status text */
+.rms-overall-reason {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 13px;
+  color: #444b67;
+}
+
+/* --------------------------------------------------
+   START TEST BUTTON
+-------------------------------------------------- */
+.rms-start-test-btn {
+  margin-top: 14px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #6a5af9, #4f46e5);
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.rms-start-test-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.55);
+}
+
+/* --------------------------------------------------
+   RMS COMPACT COUNTERS
+-------------------------------------------------- */
+.rms-test-counters.compact {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 180px;
+}
+
+.rms-counter-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.rms-counter-label {
+  font-size: 12px;
+  color: #7b7b9e;
+}
+
+.rms-counter-value {
+  font-size: 14px;
+  font-weight: 900;
+  color: #1b1f3b;
+}

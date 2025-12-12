@@ -1,16 +1,20 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const { SerialPort } = require('serialport');
+// =======================
+// main.js  (FINAL VERSION)
+// =======================
 
-let port;
+const { app, BrowserWindow, ipcMain } = require("electron");
+const path = require("path");
+const { SerialPort } = require("serialport");
+
+let port; // active serial port instance
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1300,
+    height: 800,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js")
-    }
+      preload: path.join(__dirname, "preload.js"),
+    },
   });
 
   win.loadFile("./renderer/index.html");
@@ -18,62 +22,66 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
-// -------- GET LIST OF SERIAL PORTS ----------
+// ==========================
+// GET LIST OF SERIAL PORTS
+// ==========================
 ipcMain.handle("getPorts", async () => {
   const ports = await SerialPort.list();
-  return ports.map(p => p.path);
+  return ports.map((p) => p.path);
 });
 
-// -------- CONNECT TO PORT & SEND HANDSHAKE ----------
+// ==========================
+// CONNECT SERIAL PORT
+// ==========================
 ipcMain.handle("connectPort", async (event, portName) => {
   return new Promise((resolve, reject) => {
     try {
-      port = new SerialPort({ path: portName, baudRate: 9600, autoOpen: false });
+      port = new SerialPort({
+        path: portName,
+        baudRate: 9600,
+        autoOpen: false,
+      });
 
-      // Listen for data first
+      // When data arrives → forward to renderer
       port.on("data", (data) => {
-        // Forward raw data to renderer
         event.sender.send("serialData", data);
+      });
+
+      port.on("error", (err) => {
+        console.log("Serial Error:", err);
       });
 
       port.open((err) => {
         if (err) {
-          console.error("Failed to open port:", err);
           reject(err.toString());
           return;
         }
-        console.log("Serial port opened:", portName);
 
-        // Wait ~2s for Arduino reset
+        console.log("Port opened:", portName);
+
+        // Send handshake after Arduino reset (2s)
         setTimeout(() => {
           port.write("*", (err) => {
-            if (err) console.error("Error sending handshake:", err);
-            else console.log("Handshake sent: *");
+            if (err) console.log("Handshake Failed:", err);
+            else console.log("Handshake Sent: *");
           });
         }, 2000);
 
         resolve("connected");
       });
-
-      port.on("error", (err) => {
-        console.error("Serial port error:", err);
-      });
-
     } catch (err) {
       reject(err.toString());
     }
   });
 });
 
-// -------- SEND NUMBER TO ARDUINO ----------
+// ==========================
+// SEND USER DATA
+// ==========================
 ipcMain.handle("sendData", async (event, num) => {
   if (port && port.isOpen) {
-    port.write(num.toString(), (err) => {
-      if (err) console.error("Error sending number:", err);
-      else console.log("Number sent:", num);
-    });
+    port.write(num.toString());
     return "sent";
-  } else {
-    return "no_port";
   }
+  return "no_port";
 });
